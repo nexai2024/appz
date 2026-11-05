@@ -12,6 +12,7 @@ import {
   DragStartEvent,
   DragOverEvent,
   DragEndEvent,
+  useDroppable,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -80,6 +81,16 @@ function SortableTaskItem({ task }: { task: AppTask }) {
           {task.priority}
         </span>
       </div>
+    </div>
+  );
+}
+
+function DroppableColumn({ id, children }: { id: string; children: React.ReactNode }) {
+  const { setNodeRef } = useDroppable({ id });
+
+  return (
+    <div ref={setNodeRef} className="flex-1">
+      {children}
     </div>
   );
 }
@@ -193,7 +204,7 @@ export default function TasksKanbanPage() {
                   </div>
 
                   {/* Needs an id to be droppable when empty */}
-                  <div className="flex-1" id={col.id}>
+                  <DroppableColumn id={col.id}>
                     <SortableContext
                       id={col.id}
                       items={columnTasks.map((t) => t.id)}
@@ -210,7 +221,7 @@ export default function TasksKanbanPage() {
                         )}
                       </div>
                     </SortableContext>
-                  </div>
+                  </DroppableColumn>
                 </div>
               );
             })}
