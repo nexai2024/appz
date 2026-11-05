@@ -12,6 +12,7 @@ import {
   OWNER_USER,
   buildAdminNav,
 } from "@/features/_app/nav-config";
+import { CommandPalette } from "@/components/shared/command-palette";
 
 export function DashboardShellClient({ children }: { children: ReactNode }) {
   const { state } = useStore();
@@ -47,6 +48,7 @@ export function DashboardShellClient({ children }: { children: ReactNode }) {
       settingsNav={ADMIN_SETTINGS_NAV}
       user={user}
       searchPlaceholder="Search posts, customers, leads…"
+      topbarActions={<CommandPalette />}
     >
       {children}
     </DashboardShell>
